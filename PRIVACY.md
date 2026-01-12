@@ -14,4 +14,4 @@ The App uses the **Spotify iOS SDK** to play music.
 * Please refer to [Spotify's Privacy Policy](https://www.spotify.com/legal/privacy-policy/) for information on how they handle your data.
 
 ## 3. Contact
-If you have any questions about this Privacy Policy, please contact the developer.
+If you have any questions about this Privacy Policy, please [contact](https://support.uomagrit.com/spinyl) the developer.
