@@ -12,11 +12,12 @@
         /* --- CSS VARIABLES & RESET --- */
         :root {
             --bg-color: #D8D2E7;
-            --text-color: #1a1a1a;
-            --card-bg: rgba(255, 255, 255, 0.5);
-            --card-border: rgba(255, 255, 255, 0.4);
+            --text-main: #111111;
+            --text-secondary: #555555;
+            --card-bg: rgba(255, 255, 255, 0.65); /* Vaaleampi, maitolasimainen */
+            --card-border: rgba(255, 255, 255, 0.6);
             --accent-green: #1DB954;
-            --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         * {
@@ -28,7 +29,7 @@
 
         body {
             background-color: var(--bg-color);
-            color: var(--text-color);
+            color: var(--text-main);
             font-family: var(--font-family);
             line-height: 1.5;
             overflow-x: hidden;
@@ -41,19 +42,19 @@
         }
 
         a:hover {
-            opacity: 0.7;
+            opacity: 0.6;
         }
 
         /* --- LAYOUT UTILITIES --- */
         .container {
-            max-width: 1100px;
+            max-width: 980px; /* Kapeampi container jotta reunat jäävät väljiksi */
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 0 40px; /* Reilumpi reunamarginaali mobiiliin ja desktopiin */
         }
 
         /* --- NAVIGATION --- */
         nav {
-            padding: 24px 0;
+            padding: 30px 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -64,82 +65,96 @@
             align-items: center;
             gap: 12px;
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+            letter-spacing: -0.02em;
         }
 
         .nav-logo img {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            width: 44px;
+            height: 44px;
+            border-radius: 11px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
         }
 
         .nav-cta {
-            background: #000;
+            background: #111;
             color: #fff;
-            padding: 10px 20px;
-            border-radius: 50px;
+            padding: 12px 24px;
+            border-radius: 100px;
             font-weight: 500;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            transition: transform 0.2s ease;
+        }
+        
+        .nav-cta:hover {
+            transform: scale(1.02);
+            opacity: 1; /* Override default hover opacity */
+            background: #222;
         }
 
         /* --- HERO SECTION --- */
         .hero {
             text-align: center;
-            padding-top: 80px;
-            padding-bottom: 40px;
+            padding-top: 60px;
+            padding-bottom: 20px;
+        }
+
+        .hero-subtitle {
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            margin-bottom: 16px;
+            font-weight: 700;
+            color: rgba(0,0,0,0.5);
         }
 
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 4rem;
             font-weight: 700;
-            letter-spacing: -0.02em;
-            line-height: 1.1;
-            margin-bottom: 16px;
-            background: linear-gradient(180deg, #1a1a1a 0%, #444 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            margin-bottom: 20px;
+            color: #000;
         }
 
         .hero p {
-            font-size: 1.25rem;
-            color: #555;
-            max-width: 600px;
-            margin: 0 auto 32px auto;
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            max-width: 580px;
+            margin: 0 auto 40px auto;
             font-weight: 400;
+            line-height: 1.4;
         }
 
-        /* App Store Badge Style */
+        /* App Store Badge */
         .app-store-badge {
             display: inline-block;
-            width: 180px;
-            height: auto;
+            height: 55px;
+            width: auto;
             margin-bottom: 60px;
-            transition: transform 0.2s ease;
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .app-store-badge:hover {
             transform: scale(1.05);
+            opacity: 1;
         }
 
         /* Hero Image */
         .hero-image-container {
             width: 100%;
-            max-width: 1000px;
+            max-width: 1100px; /* Kuva saa mennä leveämmälle kuin teksti */
             margin: 0 auto;
             position: relative;
+            /* Negative margin to pull image closer if needed, or spacing */
         }
 
         .hero-image {
             width: 100%;
             height: auto;
             display: block;
-            /* Subtle entry animation */
-            animation: floatUp 1s ease-out forwards;
             opacity: 0;
-            transform: translateY(20px);
-            /* Optional: Add a subtle shadow if the image doesn't have one */
-            /* filter: drop-shadow(0 20px 40px rgba(0,0,0,0.15)); */ 
+            animation: floatUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
 
         /* --- FEATURES GRID --- */
@@ -150,122 +165,148 @@
         .features-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 24px;
+            gap: 30px; /* Enemmän tilaa korttien väliin */
         }
 
         .feature-card {
             background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            /* Hienovaraisempi sumennus ja varjo */
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
             border: 1px solid var(--card-border);
-            padding: 40px;
-            border-radius: 32px;
-            transition: transform 0.3s ease;
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05);
+            padding: 48px 40px;
+            border-radius: 36px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .feature-card:hover {
             transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 30px 60px -15px rgba(0,0,0,0.08);
+            background: rgba(255, 255, 255, 0.8);
         }
 
-        .feature-icon {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            display: inline-block;
+        /* Custom SVG Icons */
+        .icon-box {
+            width: 56px;
+            height: 56px;
+            background: #fff;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .icon-box svg {
+            width: 28px;
+            height: 28px;
+            fill: #111; /* Monochromatic icon color */
         }
 
         .feature-card h3 {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             margin-bottom: 12px;
             font-weight: 600;
+            letter-spacing: -0.01em;
         }
 
         .feature-card p {
             font-size: 1.05rem;
-            color: #444;
-            line-height: 1.6;
+            color: var(--text-secondary);
+            line-height: 1.55;
         }
 
-        /* --- SPOTIFY SECTION --- */
+        /* --- SPOTIFY SECTION (Minimalist) --- */
         .spotify-section {
             text-align: center;
-            padding: 60px 0 100px 0;
-        }
-
-        .spotify-container {
-            display: inline-flex;
+            padding: 40px 0 100px 0;
+            display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 16px;
-            background: rgba(255, 255, 255, 0.4);
-            padding: 30px 50px;
-            border-radius: 24px;
-            border: 1px solid rgba(255,255,255,0.3);
+            gap: 12px;
+        }
+
+        .spotify-label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-secondary);
         }
 
         .spotify-logo {
-            height: 40px;
+            height: 44px;
             width: auto;
+            margin: 4px 0;
         }
 
-        .spotify-text {
-            font-weight: 500;
-            font-size: 0.9rem;
-            color: #444;
-        }
-        
         .spotify-disclaimer {
-            font-size: 0.8rem;
-            color: #666;
-            margin-top: 8px;
+            font-size: 0.75rem;
+            color: rgba(0,0,0,0.4);
             text-transform: uppercase;
             letter-spacing: 0.05em;
+            margin-top: 8px;
         }
 
         /* --- FOOTER --- */
         footer {
-            padding: 40px 0;
-            border-top: 1px solid rgba(0,0,0,0.05);
-            font-size: 0.9rem;
-            color: #666;
+            padding: 0 0 60px 0;
+            font-size: 0.85rem;
+            color: rgba(0,0,0,0.5);
         }
 
         .footer-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-top: 1px solid rgba(0,0,0,0.06);
+            padding-top: 30px;
         }
 
         .footer-links {
             display: flex;
-            gap: 24px;
+            gap: 30px;
         }
 
-        .company-name {
+        .footer-links a {
+            color: var(--text-main);
             font-weight: 500;
         }
 
         /* --- ANIMATIONS --- */
         @keyframes floatUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* --- MOBILE RESPONSIVE --- */
         @media (max-width: 768px) {
+            .container {
+                padding: 0 24px;
+            }
+
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
             }
             
             .features-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr; /* 1 sarake mobiilissa */
+            }
+
+            .feature-card {
+                padding: 32px 28px;
             }
 
             .footer-content {
-                flex-direction: column;
-                gap: 20px;
+                flex-direction: column-reverse;
+                gap: 24px;
                 text-align: center;
             }
         }
@@ -284,56 +325,76 @@
     </div>
 
     <header class="container hero">
-        <p style="text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; margin-bottom: 12px; font-weight: 600; opacity: 0.6;">Vinyl Music Player</p>
-        
+        <div class="hero-subtitle">Vinyl Music Player</div>
         <h1>Rediscover your albums.</h1>
-        
         <p>Turn your Spotify library into a tactile vinyl experience. <br class="desktop-only">Immersive visuals, haptic feedback, and pure listening joy.</p>
 
         <a href="https://apps.apple.com/fi/app/spinyl/id6739775079" target="_blank">
-            <img class="app-store-badge" src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83&amp;releaseDate=1310601600" alt="Download on the App Store">
+            <img class="app-store-badge" src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?releaseDate=1310601600" alt="Download on the App Store">
         </a>
 
         <div class="hero-image-container">
-            <img src="Spinyl iPad iPhone screenshot.png" alt="Spinyl App Interface on iPhone and iPad" class="hero-image">
+            <img src="Spinyl iPad iPhone screenshot.png" alt="Spinyl App Interface" class="hero-image">
         </div>
     </header>
 
     <section class="container features">
         <div class="features-grid">
+            
             <div class="feature-card">
-                <div class="feature-icon">💿</div>
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4C16.42 4 20 7.58 20 12C20 16.42 16.42 20 12 20Z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M12 12L16 8" stroke="black" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </div>
                 <h3>Tactile Turntable</h3>
                 <p>Drop the needle, watch the record spin, and feel the music. A digital experience that respects the analog ritual.</p>
             </div>
 
             <div class="feature-card">
-                <div class="feature-icon">🗂️</div>
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 6H20V18H4V6Z" stroke="black" stroke-width="2" fill="none" rx="2"/>
+                        <path d="M7 6V18M17 6V18" stroke="black" stroke-width="2"/>
+                        <path d="M2 10H22" stroke="black" stroke-width="0"/>
+                    </svg>
+                </div>
                 <h3>Crate Digging</h3>
                 <p>Don't just scroll. Flip through your album collection in a beautiful, immersive 3D view designed for collectors.</p>
             </div>
 
             <div class="feature-card">
-                <div class="feature-icon">📑</div>
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="4" y="6" width="16" height="2" rx="1" fill="black"/>
+                        <rect x="4" y="11" width="16" height="2" rx="1" fill="black"/>
+                        <rect x="4" y="16" width="10" height="2" rx="1" fill="black"/>
+                    </svg>
+                </div>
                 <h3>Queue Management</h3>
                 <p>Curate your "Up Next" list effortlessly while the record keeps spinning. Build the perfect vibe for the moment.</p>
             </div>
 
             <div class="feature-card">
-                <div class="feature-icon">📱</div>
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="14" y="4" width="8" height="14" rx="2" stroke="black" stroke-width="2" fill="none"/>
+                        <rect x="2" y="8" width="8" height="14" rx="2" stroke="black" stroke-width="2" fill="white"/>
+                    </svg>
+                </div>
                 <h3>Universal Design</h3>
                 <p>Looks stunning on iPhone and iPad. iPad supports a full landscape dashboard view for the ultimate Hi-Fi setup.</p>
             </div>
         </div>
     </section>
 
-    <section class="container spotify-section">
-        <div class="spotify-container">
-            <p class="spotify-text">Powered by</p>
-            <img src="Spotify_Primary_Logo_RGB_Green.png" alt="Spotify Logo" class="spotify-logo">
-            <p class="spotify-disclaimer">Requires Spotify Premium Account</p>
-        </div>
-    </section>
+    <div class="container spotify-section">
+        <span class="spotify-label">Powered by</span>
+        <img src="Spotify_Primary_Logo_RGB_Green.png" alt="Spotify Logo" class="spotify-logo">
+        <span class="spotify-disclaimer">Requires Spotify Premium Account</span>
+    </div>
 
     <footer class="container">
         <div class="footer-content">
