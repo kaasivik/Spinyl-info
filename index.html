@@ -14,7 +14,7 @@
             --bg-color: #D8D2E7;
             --text-main: #111111;
             --text-secondary: #555555;
-            --card-bg: rgba(255, 255, 255, 0.65); /* Vaaleampi, maitolasimainen */
+            --card-bg: rgba(255, 255, 255, 0.65);
             --card-border: rgba(255, 255, 255, 0.6);
             --accent-green: #1DB954;
             --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -47,9 +47,9 @@
 
         /* --- LAYOUT UTILITIES --- */
         .container {
-            max-width: 980px; /* Kapeampi container jotta reunat jäävät väljiksi */
+            max-width: 980px;
             margin: 0 auto;
-            padding: 0 40px; /* Reilumpi reunamarginaali mobiiliin ja desktopiin */
+            padding: 0 40px;
         }
 
         /* --- NAVIGATION --- */
@@ -88,7 +88,7 @@
         
         .nav-cta:hover {
             transform: scale(1.02);
-            opacity: 1; /* Override default hover opacity */
+            opacity: 1;
             background: #222;
         }
 
@@ -143,10 +143,9 @@
         /* Hero Image */
         .hero-image-container {
             width: 100%;
-            max-width: 1100px; /* Kuva saa mennä leveämmälle kuin teksti */
+            max-width: 1100px;
             margin: 0 auto;
             position: relative;
-            /* Negative margin to pull image closer if needed, or spacing */
         }
 
         .hero-image {
@@ -159,18 +158,17 @@
 
         /* --- FEATURES GRID --- */
         .features {
-            padding: 80px 0;
+            padding: 80px 0 40px 0; /* Vähennetty alaosan paddingia, koska Spotify-osiolla on oma */
         }
 
         .features-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 30px; /* Enemmän tilaa korttien väliin */
+            gap: 30px;
         }
 
         .feature-card {
             background: var(--card-bg);
-            /* Hienovaraisempi sumennus ja varjo */
             backdrop-filter: blur(40px);
             -webkit-backdrop-filter: blur(40px);
             border: 1px solid var(--card-border);
@@ -189,7 +187,6 @@
             background: rgba(255, 255, 255, 0.8);
         }
 
-        /* Custom SVG Icons */
         .icon-box {
             width: 56px;
             height: 56px;
@@ -205,7 +202,7 @@
         .icon-box svg {
             width: 28px;
             height: 28px;
-            fill: #111; /* Monochromatic icon color */
+            fill: #111;
         }
 
         .feature-card h3 {
@@ -221,14 +218,15 @@
             line-height: 1.55;
         }
 
-        /* --- SPOTIFY SECTION (Minimalist) --- */
+        /* --- SPOTIFY SECTION (Modified Spacing) --- */
         .spotify-section {
             text-align: center;
-            padding: 40px 0 100px 0;
+            /* REILUSTI LISÄÄ TILAA YLÖS JA ALAS */
+            padding: 80px 0 100px 0; 
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
+            gap: 16px;
         }
 
         .spotify-label {
@@ -263,7 +261,7 @@
             justify-content: space-between;
             align-items: center;
             border-top: 1px solid rgba(0,0,0,0.06);
-            padding-top: 30px;
+            padding-top: 40px; /* Hieman enemmän tilaa viivan ja tekstin väliin */
         }
 
         .footer-links {
@@ -297,11 +295,16 @@
             }
             
             .features-grid {
-                grid-template-columns: 1fr; /* 1 sarake mobiilissa */
+                grid-template-columns: 1fr;
             }
 
             .feature-card {
                 padding: 32px 28px;
+            }
+
+            /* Varmistetaan tila mobiilissa */
+            .spotify-section {
+                padding: 60px 0 80px 0;
             }
 
             .footer-content {
