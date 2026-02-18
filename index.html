@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spinyl - Vinyl Music Player</title>
+    <meta name="description" content="Turn your Spotify library into a tactile vinyl experience. Rediscover your favorite albums.">
+    
+    <link rel="icon" type="image/png" href="Appicon_Master.png">
+
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --bg-color: #D8D2E7;
+            --text-color: #1a1a1a;
+            --card-bg: rgba(255, 255, 255, 0.5);
+            --card-border: rgba(255, 255, 255, 0.4);
+            --accent-green: #1DB954;
+            --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-family);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: opacity 0.2s ease;
+        }
+
+        a:hover {
+            opacity: 0.7;
+        }
+
+        /* --- LAYOUT UTILITIES --- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            padding: 24px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .nav-logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .nav-cta {
+            background: #000;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            text-align: center;
+            padding-top: 80px;
+            padding-bottom: 40px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            background: linear-gradient(180deg, #1a1a1a 0%, #444 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: #555;
+            max-width: 600px;
+            margin: 0 auto 32px auto;
+            font-weight: 400;
+        }
+
+        /* App Store Badge Style */
+        .app-store-badge {
+            display: inline-block;
+            width: 180px;
+            height: auto;
+            margin-bottom: 60px;
+            transition: transform 0.2s ease;
+        }
+
+        .app-store-badge:hover {
+            transform: scale(1.05);
+        }
+
+        /* Hero Image */
+        .hero-image-container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            /* Subtle entry animation */
+            animation: floatUp 1s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+            /* Optional: Add a subtle shadow if the image doesn't have one */
+            /* filter: drop-shadow(0 20px 40px rgba(0,0,0,0.15)); */ 
+        }
+
+        /* --- FEATURES GRID --- */
+        .features {
+            padding: 80px 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            padding: 40px;
+            border-radius: 32px;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            font-size: 1.05rem;
+            color: #444;
+            line-height: 1.6;
+        }
+
+        /* --- SPOTIFY SECTION --- */
+        .spotify-section {
+            text-align: center;
+            padding: 60px 0 100px 0;
+        }
+
+        .spotify-container {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            background: rgba(255, 255, 255, 0.4);
+            padding: 30px 50px;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .spotify-logo {
+            height: 40px;
+            width: auto;
+        }
+
+        .spotify-text {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: #444;
+        }
+        
+        .spotify-disclaimer {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 40px 0;
+            border-top: 1px solid rgba(0,0,0,0.05);
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .company-name {
+            font-weight: 500;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes floatUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- MOBILE RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <nav>
+            <div class="nav-logo">
+                <img src="Appicon_Master.png" alt="Spinyl Icon">
+                <span>Spinyl</span>
+            </div>
+            <a href="https://apps.apple.com/fi/app/spinyl/id6739775079" class="nav-cta">Download</a>
+        </nav>
+    </div>
+
+    <header class="container hero">
+        <p style="text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; margin-bottom: 12px; font-weight: 600; opacity: 0.6;">Vinyl Music Player</p>
+        
+        <h1>Rediscover your albums.</h1>
+        
+        <p>Turn your Spotify library into a tactile vinyl experience. <br class="desktop-only">Immersive visuals, haptic feedback, and pure listening joy.</p>
+
+        <a href="https://apps.apple.com/fi/app/spinyl/id6739775079" target="_blank">
+            <img class="app-store-badge" src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83&amp;releaseDate=1310601600" alt="Download on the App Store">
+        </a>
+
+        <div class="hero-image-container">
+            <img src="Spinyl iPad iPhone screenshot.png" alt="Spinyl App Interface on iPhone and iPad" class="hero-image">
+        </div>
+    </header>
+
+    <section class="container features">
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">💿</div>
+                <h3>Tactile Turntable</h3>
+                <p>Drop the needle, watch the record spin, and feel the music. A digital experience that respects the analog ritual.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🗂️</div>
+                <h3>Crate Digging</h3>
+                <p>Don't just scroll. Flip through your album collection in a beautiful, immersive 3D view designed for collectors.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📑</div>
+                <h3>Queue Management</h3>
+                <p>Curate your "Up Next" list effortlessly while the record keeps spinning. Build the perfect vibe for the moment.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>Universal Design</h3>
+                <p>Looks stunning on iPhone and iPad. iPad supports a full landscape dashboard view for the ultimate Hi-Fi setup.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container spotify-section">
+        <div class="spotify-container">
+            <p class="spotify-text">Powered by</p>
+            <img src="Spotify_Primary_Logo_RGB_Green.png" alt="Spotify Logo" class="spotify-logo">
+            <p class="spotify-disclaimer">Requires Spotify Premium Account</p>
+        </div>
+    </section>
+
+    <footer class="container">
+        <div class="footer-content">
+            <div class="company-name">
+                &copy; 2026 Uomagrit Oy. Designed in Finland.
+            </div>
+            <div class="footer-links">
+                <a href="https://support.uomagrit.com/spinyl">Support</a>
+                <a href="https://privacy.uomagrit.com/spinyl">Privacy</a>
+                <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank">Terms</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
